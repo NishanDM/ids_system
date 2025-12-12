@@ -101,11 +101,15 @@ const [open, setOpen] = useState({ open: false, jobRef: "" });
   
   .map(job => ({
     id: job._id,
-    jobRef: job.jobRef,
+    jobRef: job.jobRef?.replace(/^IDSJBN-/, "") || "",
     customerPrefix: job.customerPrefix,
     customerName: `${job.customerPrefix ? job.customerPrefix + ' ' : ''}${job.customerName}`,
     createdAt: formatDate(job.createdAt),
     customerPhone: job.customerPhone,
+    
+    faults: Array.isArray(job.faults)
+      ? job.faults.filter(Boolean).join(" | ")
+      : "",
     // 👇 ADD THIS
   fullDeviceInfo: [
     job.model,
@@ -120,14 +124,16 @@ const [open, setOpen] = useState({ open: false, jobRef: "" });
   }));
 
   const columns = [
-    { field: 'jobRef', headerName: 'Job Ref', width: 140 },
+    { field: 'jobRef', headerName: 'Job Ref', width: 100 },
     { field: 'customerName', headerName: 'Customer Name', width: 250 },
-    { field: 'customerPhone', headerName: 'Customer Phone', width: 130 },
+    { field: 'customerPhone', headerName: 'Phone', width: 110 },
     { field: 'createdAt', headerName: 'Created Date', width: 120 },
     { field: 'fullDeviceInfo', headerName: 'Device Details', width: 460 },
-    { field: 'status', headerName: 'Status', width: 90 },
+    { field: 'faults', headerName: 'Faults', width: 400 },
+    // { field: 'status', headerName: 'Status', width: 90 },
     { field: 'progress', headerName: 'Progress', width: 190 },
-    { field: 'createdBy', headerName: 'Created By', width: 130 },
+    // { field: 'createdBy', headerName: 'Created By', width: 130 },
+    
     {
       field: 'actions',
       headerName: 'Actions',
