@@ -238,6 +238,7 @@ const [selectDescriptionModalOpen, setSelectDescriptionModalOpen] = useState(fal
 
   { key: "AirPods_Case_spigen", label: "Spigen AirPods Case" },
   { key: "AirPods_Case_berlin", label: "Berlin AirPods Case" },
+  { key: "AirPods_Case_keephone", label: "KeePhone AirPods Case" },
 
   { key: "iwatch_case", label: "iWatch Case" },
 
